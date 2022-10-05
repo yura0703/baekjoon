@@ -18,30 +18,26 @@ public class baek_14659 {
 			height.add(Integer.parseInt(st.nextToken()));
 		}
 		int standard=height.get(0);
-		List<Integer> delete_index=new ArrayList<Integer>();
+		List<Integer> check=new ArrayList<Integer>();
 		int count=0;
 		if(height.size()>1) {
 			for(int i=1;i<height.size();i++) {
-				if(height.get(i)<standard) {
-					delete_index.add(i);
+				if(standard>height.get(i)) {
+					count++;
+				}
+				else{
+					check.add(count);
+					count=0;
+					standard=height.get(i);
 				}
 			}
-			for(int i=0;i<delete_index.size();i++) {
-				height.remove(height.indexOf(delete_index.get(i)));
-			}
-			Collections.sort(height, Collections.reverseOrder());
-			standard=height.get(0);
-			count=height.size();
-			for(int i=1;i<height.size();i++) {
-				if(standard != height.get(i)) {
-					count=count-i;
-					break;
-				}
-			}
-			
-			
+			check.add(count); //마지막 인덱스에서 standard보다 큰 값을 만나지 않는 경우, count 저장 안 됩니다~
+			Collections.sort(check, Collections.reverseOrder());
+			System.out.println(check.get(0));
 		}
-		System.out.println(count);
+		else {
+			System.out.println(count);
+		}
 	}
 
 }
